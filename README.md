@@ -3,10 +3,12 @@ RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol H
 
 ## Langkah Instalasi
 ### Prerequisites
-node js
+pastikan nodejs sudah terinstall
 
 ### Instalasi
-1. `run npm install`
+1. masuk ke direktori project dan jalankan perintah "npm install" untuk menginstall dependency
+2. jalankan perintah "node app.js" untuk menjalankan server
+3. kunjungi http://localhost:8000/radio untuk memutar radio
 
 ## Fitur
 - Play Radio
