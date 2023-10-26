@@ -4,7 +4,7 @@ const audioStream = document.getElementById('audio-stream')
 const playPauseBtn = document.getElementById('play-pause-btn')
 const musicContainer = document.getElementById("music-container")
 
-let isPlay = true;
+let isPlay = false;
 let user;
 let rtcPeerConnections = {};
 
