@@ -1,85 +1,73 @@
+require('dotenv').config()
 const express = require("express");
-const http = require("http");
-const path = require("path");
-const fs = require("fs");
-const ffmpeg = require("fluent-ffmpeg");
-
 const app = express();
-const server = http.createServer(app);
-const { Server } = require("socket.io");
+const fs = require("fs");
+const path = require("path")
+const server = require("https").createServer(
+    {
+      key: fs.readFileSync(
+          path.join(__dirname + process.env.SSL_KEY)
+      ),
+      cert: fs.readFileSync(
+          path.join(__dirname + process.env.SSL_CERT)
+      ),
+    },
+    app
+);
+const io = require("socket.io")(server);
 
-const io = new Server(server, {
-  cors: { origin: "*" },
-});
+const port = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, "public")));
+const radioRouter = require("./router/radio")
 
-app.get("/", (req, res) => {
-  res.send("Express.js with Socket.io is running!");
-});
+let broadcasters = {};
 
-app.get("/stream", (req, res) => {
-  // const tunnel = radioStream.pipe(new stream.PassThrough());
-  // console.log(backpressure);
+// views
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-  const filePath = __dirname + "/music/hey.mp3";
+// express routing
+app.use(express.static("public"));
 
-  const stats = fs.statSync(filePath);
-  const range = "bytes=0-";
-  const fileSize = stats.size;
-  const chunkSize = 1024 * 1024;
-  const start = Number(range.replace(/\D/g, ""));
-  const end = Math.min(start + chunkSize, fileSize - 1);
+// radio endpoint
+app.use('/radio', radioRouter)
 
-  const headers = {
-    "Content-Type": "audio/mpeg",
-    "Content-Length": end - start,
-    "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-    "Accept-Ranges": "bytes",
-  };
-  // const headers = {
-  //   "Content-Type": "audio/mpeg3",
-  //   "Transfer-Encoding": "chunked",
-  // };
-
-  res.writeHead(206, headers);
-
-  const radioStream = ffmpeg(fs.createReadStream(filePath))
-    .audioCodec("libmp3lame")
-    .format("mp3")
-    .outputOptions("-movflags frag_keyframe+empty_moov")
-    .on("end", () => {
-      console.log("Streaming finished");
-    })
-    .on("error", (err) => {
-      console.log(err);
-    });
-
-  radioStream.pipe(res);
-});
-
-io.of("/radio").on("connection", (socket) => {
+// signaling
+io.on("connection", function (socket) {
   console.log("a user connected");
 
-  ss(socket).on("stream", (stream, data) => {
-    const filePath =
-      "/Users/irvansn/Documents/web-dev/nodejs_playground/online-radio-streaming/music/hey.mp3";
-    const radioStream = ffmpeg(fs.createReadStream(filePath))
-      .audioCodec("libmp3lame")
-      .format("mp3")
-      .outputOptions("-movflags frag_keyframe+empty_moov")
-      .on("end", () => {
-        console.log("Streaming finished");
-      })
-      .on("error", (err) => {
-        console.log(err);
-      });
+  socket.on("register as broadcaster", function (room) {
+    console.log("register as broadcaster for room", room);
 
-    radioStream.pipe(stream);
+    broadcasters[room] = socket.id;
+
+    socket.join(room);
+  });
+
+  socket.on("register as viewer", function (user) {
+    console.log("register as viewer for room", user.room);
+
+    socket.join(user.room);
+    user.id = socket.id;
+
+    socket.to(broadcasters[user.room]).emit("new viewer", user);
+  });
+
+  socket.on("candidate", function (id, event) {
+    socket.to(id).emit("candidate", socket.id, event);
+  });
+
+  socket.on("offer", function (id, event) {
+    event.broadcaster.id = socket.id;
+    socket.to(id).emit("offer", event.broadcaster, event.sdp);
+  });
+
+  socket.on("answer", function (event) {
+    socket.to(broadcasters[event.room]).emit("answer", socket.id, event.sdp);
   });
 });
 
-const port = process.env.PORT || 8000;
-server.listen(port, () => {
-  console.log(`Express.js with Socket.io is listening on port ${port}`);
+// listener
+server.listen(port || 3000, function () {
+  console.log(`Server listening on https://localhost:${port}`);
 });
