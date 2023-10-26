@@ -66,7 +66,7 @@ contohnya seperti ini :
 1. pergi ke link berikut `https://localhost:3000/radio/listen?id=1` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
 2. pastikan terdapat parameter id dan nilainya jika menggunakan project ini maka nilai id nya adalah 1 - 6
 3. anda bisa klik play, pause, next, dan previous untuk menjalankan radionya
-4. radio yang dapat menyala tergantung dari banyak broadcasr radio yang kamu jalankan.
+4. radio yang dapat menyala tergantung dari banyak broadcast radio yang kamu jalankan.
 
 ## Fitur
 - Play Radio
