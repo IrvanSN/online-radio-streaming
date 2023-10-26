@@ -51,9 +51,6 @@ contohnya seperti ini :
     }]
 };
 ```
-22. buka terminal baru dan arahkan ke root direktori project
-23. jalankan perintah `npm install flowbite`
-24. kemudian jalankan perintah `npm run tailwind`
 
 ### Cara Menjalankan Radio-Broadcast
 1. pergi ke link berikut `https://localhost:3000/radio/broadcast` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
