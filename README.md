@@ -3,7 +3,11 @@ RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol H
 
 ## Langkah Instalasi
 ### Prerequisites
-pastikan nodejs sudah terinstall
+- Make sure nodejs installed to your computer
+- Generate Self-signed certificate (WebRTC works only on https) using mkcert
+- Drop .pem file to folder /ssl_key
+- Create .env in root folder project
+- Add SSL_KEY and SSL_CERT environment variable (.env.example for example .env variable)
 
 ### Panduan Instalasi Windows
 1. masuk ke direktori project dan jalankan perintah "npm install" untuk menginstall dependency
@@ -14,11 +18,11 @@ pastikan nodejs sudah terinstall
 6. jalankan perintah `choco mkcert install`
 7. jalankan perintah `mkcert` untuk memeriksa apakah sudah terinstall atau belum
 8. jalankan perintah `mkcert -install`. Silahkan klik yes jika terdapat pop-up
-9. pergi ke direktori project dan pindahkan direktori terminal ke folder `ss-key`
+9. pergi ke direktori project dan pindahkan direktori terminal ke folder `ssl-key`
 10. jika terminal sudah berada di direktori tersebut silahkan jalankan perintah `mkcert localhost`
 11. maka pada folder project bernama `ssl-key` akan bertambah 2 file baru yaitu `localhost-key.pem` dan `localhost.pem`
 12. silahkan buat file `.env` pada root direktori project sesuai dengan `.env.example` yang diberikan
-13. apa lagi ya?
+13. silahkan jalankan perintah `npm run dev` pada root direktori project
 14. pastikan `https://localhost:3000` berjalan pada browser. Jika berhasil maka akan tampil `Cannot GET /`
 15. setelah berhasil silahkan pergi ke website https://xirsys.com/
 16. kemudian daftarkan diri kalian
@@ -47,10 +51,9 @@ contohnya seperti ini :
     }]
 };
 ```
-22. silahkan jalankan perintah `npm run dev` pada root direktori project
-23. buka terminal baru dan arahkan ke root direktori project
-24. jalankan perintah `npm install flowbite`
-25. kemudian jalankan perintah `npm run tailwind`
+22. buka terminal baru dan arahkan ke root direktori project
+23. jalankan perintah `npm install flowbite`
+24. kemudian jalankan perintah `npm run tailwind`
 
 ### Cara Menjalankan Radio-Broadcast
 1. pergi ke link berikut `https://localhost:3000/radio/broadcast` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
