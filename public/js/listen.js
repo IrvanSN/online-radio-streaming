@@ -1,8 +1,9 @@
 const radioId = document.getElementById('radioId').value
 console.log('radioId', radioId)
 const audioStream = document.getElementById('audio-stream')
-const playBtn = document.getElementById('play-btn')
+const playPauseBtn = document.getElementById('play-pause-btn')
 
+let isPlay = true;
 let user;
 let rtcPeerConnections = {};
 
@@ -13,14 +14,22 @@ const iceServers = {
 
 let socket = io();
 
-playBtn.addEventListener('click', () => {
-  user = {
-    room: radioId,
-    name: 'a'
+playPauseBtn.addEventListener('click', () => {
+  if (isPlay) {
+    isPlay = false;
+    audioStream.pause()
+  } else {
+    isPlay = true;
+    audioStream.play()
   }
-
-  socket.emit("register as viewer", user);
 })
+
+user = {
+  room: radioId,
+  name: 'a'
+}
+
+socket.emit("register as viewer", user);
 
 socket.on("candidate", function (id, event) {
   console.log("b", id);
@@ -54,6 +63,7 @@ socket.on("offer", function (broadcaster, sdp) {
 
   rtcPeerConnections[broadcaster.id].ontrack = (event) => {
     audioStream.srcObject = event.streams[0];
+    audioStream.play()
   };
 
   rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {

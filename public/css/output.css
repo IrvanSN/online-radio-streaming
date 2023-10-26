@@ -542,6 +542,10 @@ video {
   display: none;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -550,6 +554,6 @@ video {
   justify-content: center;
 }
 
-.text-center {
-  text-align: center;
+.gap-3 {
+  gap: 0.75rem;
 }

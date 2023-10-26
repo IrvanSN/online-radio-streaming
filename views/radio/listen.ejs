@@ -10,8 +10,12 @@
 </head>
 <body>
 <input id="radioId" hidden="hidden" value="<%= id %>" type="text">
-<audio autoplay id="audio-stream"></audio>
-<button id="play-btn">Play</button>
+<audio id="audio-stream"></audio>
+<div class="flex flex-row gap-3 justify-center">
+    <button id="prev-btn"><a href="/radio/listen?id=<%= canPrevChannel ? id - 1 : 6 %>">Previous</a></button>
+    <button id="play-pause-btn">Play/Pause</button>
+    <button id="next-btn"><a href="/radio/listen?id=<%= canNextChannel ? id + 1 : 1 %>">Next</a></button>
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/listen.js"></script>
 </body>

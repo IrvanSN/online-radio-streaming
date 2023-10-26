@@ -48,7 +48,13 @@ router.get('/listen', (req, res) => {
     return res.status(404).json({message: "Radio not found!"})
   }
 
-  res.render('radio/listen', {title: radio.title, id: radio.id})
+  res.render('radio/listen', {
+    title: radio.title,
+    id: radio.id,
+    canPrevChannel: parseInt(id) - 1 > 0,
+    canNextChannel: parseInt(id) + 1 <= radioList.length,
+    radioLength: radioList.length
+  })
 })
 
 module.exports = router

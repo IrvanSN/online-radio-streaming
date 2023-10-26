@@ -19,6 +19,7 @@ const context = new AudioContext();
 // constants
 const iceServers = {
 //  TODO
+
 };
 
 let socket = io();
