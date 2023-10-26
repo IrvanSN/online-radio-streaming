@@ -68,6 +68,6 @@ io.on("connection", function (socket) {
 });
 
 // listener
-server.listen(port || 3000, function () {
+server.listen(port, function () {
   console.log(`Server listening on https://localhost:${port}`);
 });
