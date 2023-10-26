@@ -1,9 +1,13 @@
 # RADIO HEBAT
-RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol HLS(Http Live Streaming).
+RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol WebRTC dan socket.io.
 
 ## Langkah Instalasi
 ### Prerequisites
-pastikan nodejs sudah terinstall
+- Make sure nodejs installed to your computer
+- Generate Self-signed certificate (WebRTC works only on https) using mkcert
+- Drop .pem file to folder /ssl_key
+- Create .env in root folder project
+- Add SSL_KEY and SSL_CERT environment variable (.env.example for example .env variable)
 
 ### Panduan Instalasi Windows
 1. masuk ke direktori project dan jalankan perintah "npm install" untuk menginstall dependency
@@ -18,7 +22,7 @@ pastikan nodejs sudah terinstall
 10. jika terminal sudah berada di direktori tersebut silahkan jalankan perintah `mkcert localhost`
 11. maka pada folder project bernama `ssl-key` akan bertambah 2 file baru yaitu `localhost-key.pem` dan `localhost.pem`
 12. silahkan buat file `.env` pada root direktori project sesuai dengan `.env.example` yang diberikan
-13. apa lagi ya?
+13. silahkan jalankan perintah `npm run dev` pada root direktori project
 14. pastikan `https://localhost:3000` berjalan pada browser. Jika berhasil maka akan tampil `Cannot GET /`
 15. setelah berhasil silahkan pergi ke website https://xirsys.com/
 16. kemudian daftarkan diri kalian
@@ -28,7 +32,7 @@ pastikan nodejs sudah terinstall
 20. kemudian `copy` credentials tersebut
 21. dan yang terakhir `paste` credentials tersebut ke file `public/js/broadcast.js` dan `public/js/listen.js` pada line 20 atau `iceserver`
 contohnya seperti ini :
-javascript
+```javascript
     const iceServers = {
 //  TODO
     iceServers: [{
@@ -46,11 +50,10 @@ javascript
         ]
     }]
 };
-
-22. silahkan jalankan perintah `npm run dev` pada root direktori project
-23. buka terminal baru dan arahkan ke root direktori project
-24. jalankan perintah `npm install flowbite`
-25. kemudian jalankan perintah `npm run tailwind`
+```
+22. buka terminal baru dan arahkan ke root direktori project
+23. jalankan perintah `npm install flowbite`
+24. kemudian jalankan perintah `npm run tailwind`
 
 ### Cara Menjalankan Radio-Broadcast
 1. pergi ke link berikut `https://localhost:3000/radio/broadcast` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
@@ -65,9 +68,10 @@ javascript
 3. anda bisa klik play, pause, next, dan previous untuk menjalankan radionya
 4. radio yang dapat menyala tergantung dari banyak broadcasr radio yang kamu jalankan.
 
-
-
 ## Fitur
 - Play Radio
 - Stop Radio
 - Change Radio Channel
+- broadcast
+- mute monitoring audio
+- unmute monitoring audio
