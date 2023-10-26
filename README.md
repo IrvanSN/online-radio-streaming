@@ -10,6 +10,11 @@ pastikan nodejs sudah terinstall
 2. jalankan perintah "npm start" untuk menjalankan server
 3. kunjungi http://localhost:8000/radio untuk memutar radio
 
+### Panduan Menjalankan Radio-Client
+1. pergi ke folder `public`
+2. buka folder `radio`
+3. jalankan file `index.html` pada browser kalian
+
 ## Fitur
 - Play Radio
 - Stop Radio
