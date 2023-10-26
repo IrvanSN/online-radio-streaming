@@ -2,6 +2,7 @@ const radioId = document.getElementById('radioId').value
 console.log('radioId', radioId)
 const audioStream = document.getElementById('audio-stream')
 const playPauseBtn = document.getElementById('play-pause-btn')
+const musicContainer = document.getElementById("music-container")
 
 let isPlay = true;
 let user;
@@ -18,9 +19,16 @@ playPauseBtn.addEventListener('click', () => {
   if (isPlay) {
     isPlay = false;
     audioStream.pause()
+    musicContainer.classList.remove("play-pause-btn");
+    playPauseBtn.querySelector("i.fas").classList.add("fa-play");
+    playPauseBtn.querySelector("i.fas").classList.remove("fa-pause");
   } else {
     isPlay = true;
     audioStream.play()
+    musicContainer.classList.add("play-pause-btn");
+    playPauseBtn.querySelector("i.fas").classList.remove("fa-play");
+    playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
+
   }
 })
 

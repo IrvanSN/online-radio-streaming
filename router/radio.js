@@ -13,7 +13,7 @@ router.get('/broadcast', (req, res) => {
 
   const radio = radioList.filter(item => item.id.toString() === id.toString())[0]
 
-  res.render('radio/broadcast', {title: radio.title, id: radio.id})
+  res.render('radio/broadcast', {title: radio.title, id: radio.id, cover: radio.cover})
 })
 
 router.get('/listen', (req, res) => {
