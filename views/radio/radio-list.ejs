@@ -16,7 +16,7 @@
     </svg>
     <div class="flex flex-row mb-48">
         <% data.map(item => { %>
-            <a href="/radio/broadcast?id=<%= item.id %>" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mr-16">
+            <a href="/radio/broadcast?id=<%= item.id %>" target="_blank" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mr-16">
                 <h5 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= item.title %></h5>
             </a>
         <% }) %>
