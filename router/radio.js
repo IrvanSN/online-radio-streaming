@@ -1,32 +1,8 @@
 const express = require("express")
 const router = express.Router()
+const radios = require('../data/radios.json')
 
-const radioList = [
-  {
-    id: 1,
-    title: "HardRock FM Jakarta",
-  },
-  {
-    id: 2,
-    title: "Radio Republik Indonesia",
-  },
-  {
-    id: 3,
-    title: "Elshinta Jakarta",
-  },
-  {
-    id: 4,
-    title: "Cosmopolitan Radio",
-  },
-  {
-    id: 5,
-    title: "Trax FM",
-  },
-  {
-    id: 6,
-    title: "I-Radio",
-  }
-]
+const radioList = radios
 
 router.get('/broadcast', (req, res) => {
   const {id} = req.query
@@ -50,6 +26,7 @@ router.get('/listen', (req, res) => {
 
   res.render('radio/listen', {
     title: radio.title,
+    cover: radio.cover,
     id: radio.id,
     canPrevChannel: parseInt(id) - 1 > 0,
     canNextChannel: parseInt(id) + 1 <= radioList.length,

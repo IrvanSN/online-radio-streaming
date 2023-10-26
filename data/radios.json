@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "HardRock FM Jakarta",
+    "cover": "/images/hardrock.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Radio Republik Indonesia",
+    "cover": "/images/rri.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Elshinta Jakarta",
+    "cover": "/images/elshinta.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Cosmopolitan Radio",
+    "cover": "/images/cosmopolitan.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Trax FM",
+    "cover": "/images/trax.jpg"
+  },
+  {
+    "id": 6,
+    "title": "I-Radio",
+    "cover": "/images/iradio.jpg"
+  }
+]
