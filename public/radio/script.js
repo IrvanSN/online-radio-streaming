@@ -57,7 +57,7 @@ function loadSong(song) {
   console.log(song);
   title.innerText = song.title;
   audio.src = `${song.audioSrc}`;
-  cover.src = `/images/${song.coverImage}.jpg`;
+  cover.src = `../images/${song.coverImage}.jpg`;
 }
 
 // Play song
