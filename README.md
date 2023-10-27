@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # RADIO HEBAT
 RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol WebRTC dan socket.io.
 
@@ -74,4 +72,3 @@ contohnya seperti ini :
 - broadcast
 - mute monitoring audio
 - unmute monitoring audio
->>>>>>> refs/remotes/origin/main
