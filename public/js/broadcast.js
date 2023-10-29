@@ -10,16 +10,35 @@ const audioStream = document.getElementById('audio-stream')
 const audioMonitor = document.getElementById('audio-monitor')
 const muteAudioMonitor = document.getElementById('mute-audio-monitor')
 const unmuteAudioMonitor = document.getElementById('unmute-audio-monitor')
+const muteUnmuteAudioMonitor = document.getElementById('mute-unmute-audio-monitor')
 
 // variables
 let user;
 let rtcPeerConnections = {};
 const context = new AudioContext();
+let isMonitorAudioMuted = false;
 
 // constants
 const iceServers = {
 //  TODO
-
+  iceServers: [
+    {
+      urls: ["stun:ss-turn1.xirsys.com"],
+    },
+    {
+      username:
+          "AmBgp9EwD9Yun3B0fGZUx-bpxJZC_OlKLAEB8yGtnFiH1VmkSJCO-8KRYa7MsyouAAAAAGU6jkhpcnZhbnNu",
+      credential: "7b113ad4-7419-11ee-be6b-0242ac140004",
+      urls: [
+        "turn:ss-turn1.xirsys.com:80?transport=udp",
+        // "turn:ss-turn1.xirsys.com:3478?transport=udp",
+        "turn:ss-turn1.xirsys.com:80?transport=tcp",
+        // "turn:ss-turn1.xirsys.com:3478?transport=tcp",
+        // "turns:ss-turn1.xirsys.com:443?transport=tcp",
+        // "turns:ss-turn1.xirsys.com:5349?transport=tcp",
+      ],
+    },
+  ]
 };
 
 let socket = io();
@@ -72,13 +91,25 @@ const setStatus = (message) => {
   status.innerHTML = `Status: ${message}`
 }
 
-muteAudioMonitor.addEventListener('click', () => {
-  audioMonitor.muted = true
+muteUnmuteAudioMonitor.addEventListener('click', () => {
+  if (isMonitorAudioMuted) {
+    isMonitorAudioMuted = false
+    audioMonitor.muted = false
+    muteUnmuteAudioMonitor.innerHTML = "Mute"
+  } else {
+    isMonitorAudioMuted = true
+    audioMonitor.muted = true
+    muteUnmuteAudioMonitor.innerHTML = "Unmute"
+  }
 })
 
-unmuteAudioMonitor.addEventListener('click', () => {
-  audioMonitor.muted = false
-})
+// muteAudioMonitor.addEventListener('click', () => {
+//   audioMonitor.muted = true
+// })
+//
+// unmuteAudioMonitor.addEventListener('click', () => {
+//   audioMonitor.muted = false
+// })
 
 // socket message handlers
 socket.on("new viewer", function (viewer) {
