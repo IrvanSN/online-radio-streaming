@@ -53,11 +53,12 @@ contohnya seperti ini :
 ```
 
 ### Cara Menjalankan Radio-Broadcast
-1. pergi ke link berikut `https://localhost:3000/radio/broadcast` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
-2. pilih salah satu radio
-3. upload file mp3 yang akan kamu siarkan
-4. klik button `broadcast now`
-5. kamu bisa `mute` atau `unmute` untuk monitoring audio
+1. silahkan jalankan perintah npm run dev pada root direktori project
+2. pergi ke link berikut `https://localhost:3000/radio/broadcast` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
+3. pilih salah satu radio
+4. upload file mp3 yang akan kamu siarkan
+5. klik button `broadcast now`
+6. kamu bisa `mute` atau `unmute` untuk monitoring audio
 
 ### Panduan Menjalankan Radio-Client
 1. pergi ke link berikut `https://localhost:3000/radio/listen?id=1` (windows). untuk os lain dapat disesuaikan dengan mkcert yang dijalankan
