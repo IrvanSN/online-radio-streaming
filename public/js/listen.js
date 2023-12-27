@@ -4,13 +4,34 @@ const audioStream = document.getElementById('audio-stream')
 const playPauseBtn = document.getElementById('play-pause-btn')
 const musicContainer = document.getElementById("music-container")
 
-let isPlay = false;
+let isPlay = true;
+musicContainer.classList.add("play-pause-btn");
+playPauseBtn.querySelector("i.fas").classList.remove("fa-play");
+playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
 let user;
 let rtcPeerConnections = {};
 
 // constants
 const iceServers = {
 //   TODO
+  iceServers: [
+    {
+      urls: ["stun:ss-turn1.xirsys.com"],
+    },
+    {
+      username:
+          "AmBgp9EwD9Yun3B0fGZUx-bpxJZC_OlKLAEB8yGtnFiH1VmkSJCO-8KRYa7MsyouAAAAAGU6jkhpcnZhbnNu",
+      credential: "7b113ad4-7419-11ee-be6b-0242ac140004",
+      urls: [
+        "turn:ss-turn1.xirsys.com:80?transport=udp",
+        // "turn:ss-turn1.xirsys.com:3478?transport=udp",
+        "turn:ss-turn1.xirsys.com:80?transport=tcp",
+        // "turn:ss-turn1.xirsys.com:3478?transport=tcp",
+        // "turns:ss-turn1.xirsys.com:443?transport=tcp",
+        // "turns:ss-turn1.xirsys.com:5349?transport=tcp",
+      ],
+    },
+  ]
 };
 
 let socket = io();
@@ -28,7 +49,6 @@ playPauseBtn.addEventListener('click', () => {
     musicContainer.classList.add("play-pause-btn");
     playPauseBtn.querySelector("i.fas").classList.remove("fa-play");
     playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
-
   }
 })
 
