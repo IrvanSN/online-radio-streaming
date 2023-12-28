@@ -5,7 +5,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Broadcast Radio List</title>
+        <title>Stasiun Radio - Radio Hebat</title>
         <link href="/css/output.css" rel="stylesheet" />
         <link href="/css/style.css" rel="stylesheet" />
     </head>
@@ -16,7 +16,7 @@
     </svg>
     <div class="flex flex-col justify-center mb-8">
         <% data.map(item => { %>
-            <a href="<%= path %><%= item.id %>" target="_blank" class="block mb-3 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <a href="<%= path %><%= item.id %>" class="block mb-3 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h5 class="text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white"><%= item.title %></h5>
             </a>
         <% }) %>

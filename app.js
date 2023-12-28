@@ -18,6 +18,7 @@ const io = require("socket.io")(server);
 
 const port = process.env.PORT || 3000;
 
+const indexRouter = require('./router/index')
 const radioRouter = require("./router/radio")
 const broadcastRouter = require('./router/broadcast')
 
@@ -30,8 +31,11 @@ app.set('view engine', 'ejs');
 // express routing
 app.use(express.static("public"));
 
-// radio endpoint
+app.use('/', indexRouter)
+// listener endpoint
 app.use('/radio', radioRouter)
+
+// broadcaster endpoint
 app.use('/broadcast', broadcastRouter)
 
 // signaling
