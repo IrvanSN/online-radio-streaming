@@ -4,12 +4,11 @@
 
 body {
     background-image: url(../images/texture.png), linear-gradient(74deg, #00A9FF -67.93%, #A0E9FF 123.02%);
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
+    padding-top: 20px;
+    height: 100vh;
+    padding-bottom: 20px;
 }
 
 

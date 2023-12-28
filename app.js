@@ -46,7 +46,7 @@ io.on("connection", function (socket) {
     console.log("register as broadcaster for room", room);
 
     broadcasters[room] = socket.id;
-
+    console.log('broadcasters', broadcasters)
     socket.join(room);
   });
 

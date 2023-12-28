@@ -8,6 +8,7 @@ module.exports = {
     colors: {
       'sea-blue': '#00A9FF',
       'reid-peach': '#FE5068',
+      'yellow-strip': '#FFB703'
     },
     extend: {},
   },
