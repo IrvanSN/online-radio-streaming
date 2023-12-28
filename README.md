@@ -15,7 +15,7 @@ RADIO HEBAT, Online Radio Streaming Berbasis Website dengan Penerapan Protokol W
 3. Unduh `chocolatey.msi` (unduh versi terbarunya pada asset) pada link berikut https://github.com/chocolatey/choco/releases
 4. buka file `.msi` tersebut, kemudian install seperti biasa
 5. setelah instalasi chocolaty selesai silahkan buka command promt administrator. Untuk memeriksa chocolatey telah terinstal atau belum, anda dapat mengetikkan perintah `choco` pada terminal administrator
-6. jalankan perintah `choco mkcert install`
+6. jalankan perintah `choco install mkcert`
 7. jalankan perintah `mkcert` untuk memeriksa apakah sudah terinstall atau belum
 8. jalankan perintah `mkcert -install`. Silahkan klik yes jika terdapat pop-up
 9. pergi ke direktori project dan pindahkan direktori terminal ke folder `ssl-key`

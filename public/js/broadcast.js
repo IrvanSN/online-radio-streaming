@@ -21,24 +21,20 @@ let isMonitorAudioMuted = false;
 // constants
 const iceServers = {
 //  TODO
-  iceServers: [
-    {
-      urls: ["stun:ss-turn1.xirsys.com"],
-    },
-    {
-      username:
-          "AmBgp9EwD9Yun3B0fGZUx-bpxJZC_OlKLAEB8yGtnFiH1VmkSJCO-8KRYa7MsyouAAAAAGU6jkhpcnZhbnNu",
-      credential: "7b113ad4-7419-11ee-be6b-0242ac140004",
-      urls: [
-        "turn:ss-turn1.xirsys.com:80?transport=udp",
-        // "turn:ss-turn1.xirsys.com:3478?transport=udp",
-        "turn:ss-turn1.xirsys.com:80?transport=tcp",
-        // "turn:ss-turn1.xirsys.com:3478?transport=tcp",
-        // "turns:ss-turn1.xirsys.com:443?transport=tcp",
-        // "turns:ss-turn1.xirsys.com:5349?transport=tcp",
-      ],
-    },
-  ]
+    iceServers: [{
+        urls: [ "stun:ss-turn1.xirsys.com" ]
+    }, {
+        username: "qqo0uM1yGmbuPyizTxt-ZaDcAPtLXJQVl5i_Yxwkz51PZAk1ikLBg2_lLXsNxOqHAAAAAGU64T5hbmRpcHJ0bQ==",
+        credential: "edcd1c74-744a-11ee-9cc7-0242ac140004",
+        urls: [
+            "turn:ss-turn1.xirsys.com:80?transport=udp",
+            "turn:ss-turn1.xirsys.com:3478?transport=udp",
+            "turn:ss-turn1.xirsys.com:80?transport=tcp",
+            "turn:ss-turn1.xirsys.com:3478?transport=tcp",
+            "turns:ss-turn1.xirsys.com:443?transport=tcp",
+            "turns:ss-turn1.xirsys.com:5349?transport=tcp"
+        ]
+    }]
 };
 
 let socket = io();
