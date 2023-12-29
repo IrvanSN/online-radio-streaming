@@ -8,8 +8,6 @@ const audioStream = document.getElementById('audio-stream')
 
 // Monitoring Audio for Broadcasting
 const audioMonitor = document.getElementById('audio-monitor')
-const muteAudioMonitor = document.getElementById('mute-audio-monitor')
-const unmuteAudioMonitor = document.getElementById('unmute-audio-monitor')
 const muteUnmuteAudioMonitor = document.getElementById('mute-unmute-audio-monitor')
 
 // variables
@@ -79,14 +77,6 @@ muteUnmuteAudioMonitor.addEventListener('click', () => {
     muteUnmuteAudioMonitor.innerHTML = "Unmute"
   }
 })
-
-// muteAudioMonitor.addEventListener('click', () => {
-//   audioMonitor.muted = true
-// })
-//
-// unmuteAudioMonitor.addEventListener('click', () => {
-//   audioMonitor.muted = false
-// })
 
 // socket message handlers
 socket.on("new viewer", async (viewer, iceServers) => {
