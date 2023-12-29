@@ -18,25 +18,6 @@ let rtcPeerConnections = {};
 const context = new AudioContext();
 let isMonitorAudioMuted = false;
 
-// constants
-const iceServers = {
-//  TODO
-    iceServers: [{
-        urls: [ "stun:ss-turn1.xirsys.com" ]
-    }, {
-        username: "qqo0uM1yGmbuPyizTxt-ZaDcAPtLXJQVl5i_Yxwkz51PZAk1ikLBg2_lLXsNxOqHAAAAAGU64T5hbmRpcHJ0bQ==",
-        credential: "edcd1c74-744a-11ee-9cc7-0242ac140004",
-        urls: [
-            "turn:ss-turn1.xirsys.com:80?transport=udp",
-            "turn:ss-turn1.xirsys.com:3478?transport=udp",
-            "turn:ss-turn1.xirsys.com:80?transport=tcp",
-            "turn:ss-turn1.xirsys.com:3478?transport=tcp",
-            "turns:ss-turn1.xirsys.com:443?transport=tcp",
-            "turns:ss-turn1.xirsys.com:5349?transport=tcp"
-        ]
-    }]
-};
-
 let socket = io();
 
 btnStartBroadcast.addEventListener('click', () => {
@@ -108,10 +89,9 @@ muteUnmuteAudioMonitor.addEventListener('click', () => {
 // })
 
 // socket message handlers
-socket.on("new viewer", function (viewer) {
-  console.log("a", viewer.id);
-  console.log("a", rtcPeerConnections);
-  rtcPeerConnections[viewer.id] = new RTCPeerConnection(iceServers);
+socket.on("new viewer", async (viewer, iceServers) => {
+  console.log('iceServers', iceServers)
+  rtcPeerConnections[viewer.id] = new RTCPeerConnection({iceServers: [iceServers]});
 
   const stream = audioStream.srcObject;
   stream
@@ -145,9 +125,7 @@ socket.on("new viewer", function (viewer) {
       });
 })
 
-socket.on("candidate", function (id, event) {
-  console.log("b", id);
-  console.log("b", rtcPeerConnections);
+socket.on("candidate", (id, event) => {
   let candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -156,9 +134,7 @@ socket.on("candidate", function (id, event) {
   rtcPeerConnections[id].addIceCandidate(candidate);
 });
 
-socket.on("answer", function (viewerId, event) {
-  console.log("d", viewerId);
-  console.log("d", rtcPeerConnections);
+socket.on("answer", (viewerId, event) => {
   rtcPeerConnections[viewerId].setRemoteDescription(
       new RTCSessionDescription(event)
   );

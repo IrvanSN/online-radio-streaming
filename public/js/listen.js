@@ -11,11 +11,6 @@ playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
 let user;
 let rtcPeerConnections = {};
 
-// constants
-const iceServers = {
-//   TODO
-};
-
 let socket = io();
 
 playPauseBtn.addEventListener('click', () => {
@@ -41,9 +36,7 @@ user = {
 
 socket.emit("register as viewer", user);
 
-socket.on("candidate", function (id, event) {
-  console.log("b", id);
-  console.log("b", rtcPeerConnections);
+socket.on("candidate", (id, event) => {
   let candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -51,10 +44,8 @@ socket.on("candidate", function (id, event) {
   rtcPeerConnections[id].addIceCandidate(candidate);
 });
 
-socket.on("offer", function (broadcaster, sdp) {
-  console.log("c", broadcaster.id);
-  console.log("c", rtcPeerConnections);
-  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+socket.on("offer", async (broadcaster, sdp, iceServers) => {
+  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection({iceServers: [iceServers]});
 
   rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
 
