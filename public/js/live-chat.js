@@ -23,3 +23,17 @@ socket.on('receive-message', (name, message) => {
   addMessageToChatBox({name, message})
 })
 
+socket.on('live-chat-data', ({chats, currentListeners}) => {
+  const chatBox = document.getElementById('chat-box')
+  document.getElementById('current-listeners').innerHTML = currentListeners
+  chats.map(item => {
+    const messageElement = `<p><span class="mr-4 font-semibold">${item.name}</span><span>${item.message}</span></p>`
+    chatBox.innerHTML += messageElement
+  })
+  chatBox.scrollTop = chatBox.scrollHeight
+})
+
+socket.on('current-listeners', (count) => {
+  document.getElementById('current-listeners').innerHTML = count
+})
+

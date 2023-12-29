@@ -55,10 +55,10 @@ app.use('/radio', radioRouter)
 app.use('/broadcast', broadcastRouter)
 
 // signaling
-io.on("connection", function (socket) {
+io.on("connection", (socket) => {
   console.log("a user connected, " + socket.id);
 
-  socket.on("register as broadcaster", function (room) {
+  socket.on("register as broadcaster", (room) => {
     console.log("register as broadcaster for room", room);
 
     broadcasters[room] = socket.id;
@@ -66,35 +66,43 @@ io.on("connection", function (socket) {
     socket.join(room);
   });
 
-  socket.on("register as viewer", async function (user) {
+  socket.on("register as viewer", async (user) => {
     console.log("register as viewer for room", user.room);
+
+    await redis.incr(`room:${user.room}:online_users`)
+
+    const chatData = await redis.zRange(`room:${user.room}:chats`, 0, -1)
+    const usersOnline = await redis.get(`room:${user.room}:online_users`)
+    socket.emit('live-chat-data', {
+      chats: chatData.map(item => JSON.parse(item)),
+      currentListeners: parseInt(usersOnline)
+    })
+
+    socket.to(user.room).emit('current-listeners', usersOnline)
 
     socket.join(user.room);
     user.id = socket.id;
     listeners[socket.id] = user.room
 
-    await redis.incr(`room:${user.room}:online_users`)
-
     socket.to(broadcasters[user.room]).emit("new viewer", user);
   });
 
-  socket.on("candidate", function (id, event) {
+  socket.on("candidate", (id, event) => {
     socket.to(id).emit("candidate", socket.id, event);
   });
 
-  socket.on("offer", function (id, event) {
+  socket.on("offer", (id, event) => {
     event.broadcaster.id = socket.id;
     socket.to(id).emit("offer", event.broadcaster, event.sdp);
   });
 
-  socket.on("answer", function (event) {
+  socket.on("answer", (event) => {
     socket.to(broadcasters[event.room]).emit("answer", socket.id, event.sdp);
   });
 
   // live chat events
   socket.on('new-message', async (radioId, name, message) => {
     const timestamps = new Date().getTime()
-    console.log('broadcasters', broadcasters)
 
     await redis.zAdd(`room:${radioId}:chats`,
         {
@@ -115,11 +123,14 @@ io.on("connection", function (socket) {
 
     await redis.decr(`room:${listeners[socket.id]}:online_users`)
 
+    const usersOnline = await redis.get(`room:${listeners[socket.id]}:online_users`)
+    socket.to(listeners[socket.id]).emit('current-listeners', usersOnline)
+
     delete listeners[socket.id]
   })
 });
 
 // listener
-server.listen(port, function () {
+server.listen(port, () => {
   console.log(`Server listening on https://localhost:${port}`);
 });
