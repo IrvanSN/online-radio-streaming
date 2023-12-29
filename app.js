@@ -14,7 +14,18 @@ const server = require("https").createServer(
     },
     app
 );
+const {createClient} = require("redis");
+
 const io = require("socket.io")(server);
+let redis;
+
+(async () => {
+  redis = await createClient({
+    url: process.env.REDIS_SERVER_URL
+  })
+      .on('error', err => console.log('Redis Client Error', err))
+      .connect();
+})()
 
 const port = process.env.PORT || 3000;
 
@@ -22,7 +33,12 @@ const indexRouter = require('./router/index')
 const radioRouter = require("./router/radio")
 const broadcastRouter = require('./router/broadcast')
 
+// roomId:socketId
+// { '1': 'o7Ki_hfEprmw_TxxAAAB' }
 let broadcasters = {};
+// socketId:roomId
+// { M_IffTeKM2Zqh93FAAAJ: '4', r11ch9sVVwYGQO5lAAAL: '4' }
+let listeners = {}
 
 // views
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +56,7 @@ app.use('/broadcast', broadcastRouter)
 
 // signaling
 io.on("connection", function (socket) {
-  console.log("a user connected");
+  console.log("a user connected, " + socket.id);
 
   socket.on("register as broadcaster", function (room) {
     console.log("register as broadcaster for room", room);
@@ -50,11 +66,14 @@ io.on("connection", function (socket) {
     socket.join(room);
   });
 
-  socket.on("register as viewer", function (user) {
+  socket.on("register as viewer", async function (user) {
     console.log("register as viewer for room", user.room);
 
     socket.join(user.room);
     user.id = socket.id;
+    listeners[socket.id] = user.room
+
+    await redis.incr(`room:${user.room}:online_users`)
 
     socket.to(broadcasters[user.room]).emit("new viewer", user);
   });
@@ -71,6 +90,33 @@ io.on("connection", function (socket) {
   socket.on("answer", function (event) {
     socket.to(broadcasters[event.room]).emit("answer", socket.id, event.sdp);
   });
+
+  // live chat events
+  socket.on('new-message', async (radioId, name, message) => {
+    const timestamps = new Date().getTime()
+    console.log('broadcasters', broadcasters)
+
+    await redis.zAdd(`room:${radioId}:chats`,
+        {
+          score: timestamps,
+          value: JSON.stringify({
+            timestamps: timestamps,
+            name: name,
+            message: message
+          })
+        }
+    )
+        .then(() => socket.to(radioId).emit("receive-message", name, message))
+        .catch((e) => console.log('gagal menyimpan data! ' + e.toString()))
+  })
+
+  socket.on('disconnect', async () => {
+    console.log('a user has disconnected, ' + socket.id)
+
+    await redis.decr(`room:${listeners[socket.id]}:online_users`)
+
+    delete listeners[socket.id]
+  })
 });
 
 // listener
