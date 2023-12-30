@@ -13,7 +13,7 @@
 <body class="h-full w-full">
 <div class="h-full flex flex-col">
     <div class="flex flex-col lg:flex-row">
-        <div class="flex flex-col items-center mb-6" style="width: 60%;">
+        <div class="flex flex-col items-center mb-6 w-[60%] px-11">
             <svg width="450" height="64" viewBox="0 0 476 64" fill="none" xmlns="http://www.w3.org/2000/svg"
                  class="mb-6">
                 <path d="M123 60.393C132.911 52.8889 165.221 39.7497 215.173 47.2255" stroke="#FFB703"
@@ -22,7 +22,7 @@
                       fill="#404040"/>
             </svg>
             <a href="#"
-               class="py-4 mb-6 flex flex-row items-center border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 bg-white p-2"
+               class="shadow-xl py-4 mb-6 flex flex-row items-center border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 bg-white p-2"
                style="min-width: 300px;">
                 <img class="radio-image" src="<%= cover %>" alt="">
                 <div class="flex flex-col justify-between leading-normal pl-2 w-full">
@@ -31,17 +31,17 @@
                     <p id="status" class="font-medium text-green-600"></p>
                 </div>
             </a>
-            <div class="flex gap-3 w-1/2">
-                <div class="flex flex-col justify-center gap-1 w-full">
-                    <p class="text-white font-medium text-center">Broadcast</p>
+            <div class="flex gap-3 w-full border border-picton-blue-100 p-5 rounded-2xl bg-white shadow-xl">
+                <div class="flex flex-col justify-center w-full">
+                    <p class="mb-2 text-xl font-medium text-center">Broadcast</p>
                     <button id="broadcast-control" type="button"
                             class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-picton-blue-500 hover:bg-picton-blue-600 focus:outline-none focus:ring-picton-blue-400"
                     >
                         Start Now
                     </button>
                 </div>
-                <div class="flex flex-col justify-center gap-1 w-full">
-                    <p class="text-white font-medium text-center">Monitoring Audio</p>
+                <div class="flex flex-col justify-center w-full">
+                    <p class="mb-2 text-xl font-medium text-center">Monitoring Audio</p>
                     <button id="audio-monitor-control" type="button"
                             class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400"
                     >
@@ -50,44 +50,46 @@
                 </div>
             </div>
 
-            <p class="mt-5 mb-1 text-white font-medium text-center">Source Control</p>
-            <div class="flex flex-row gap-3" style="max-width: 32rem;">
-                <div class="flex flex-col" style="width: 14.5rem; max-width: 14.5rem">
-                    <div class="h-10 bg-white mb-2 rounded-md flex px-1 items-center">
-                        <p>Now playing cukurukuk.mp3</p>
+            <div class="mt-5 w-full border border-picton-blue-100 p-5 rounded-2xl bg-white shadow-xl">
+                <p class="mb-2 text-xl font-medium text-center">Source Control</p>
+                <div class="flex flex-row gap-3 w-full">
+                    <div class="flex flex-col w-full">
+                        <div class="h-10 bg-white mb-2 rounded-md flex px-1 justify-center items-center  border border-gray-300">
+                            <p>Now playing cukurukuk.mp3</p>
+                        </div>
+                        <!--                        <label class="flex flex-col" for="upload-playlist">-->
+                        <!--                            <input class="hidden" id="upload-playlist" type="text">-->
+                        <!--                        </label>-->
+                        <label for="music-volume-range">
+                            <input id="music-volume-range" type="range" value="50"
+                                   class="w-full mb-4 h-2 bg-gray-300 rounded-lg appearance-none accent-picton-blue-500 cursor-pointer">
+                        </label>
+                        <div class="flex flex-col gap-2">
+                            <button id="music-mute-control" type="button"
+                                    class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
+                                Mute
+                            </button>
+                        </div>
                     </div>
-                    <!--                        <label class="flex flex-col" for="upload-playlist">-->
-                    <!--                            <input class="hidden" id="upload-playlist" type="text">-->
-                    <!--                        </label>-->
-                    <label for="music-volume-range">
-                        <input id="music-volume-range" type="range" value="50"
-                               class="w-full mb-4 h-2 bg-gray-200 rounded-lg appearance-none accent-picton-blue-500 cursor-pointer">
-                    </label>
-                    <div class="flex flex-col gap-2">
-                        <button id="music-mute-control" type="button"
-                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
-                            Mute
-                        </button>
-                    </div>
-                </div>
-                <div class="flex flex-col" style="width: 14.5rem; max-width: 14.5rem">
-                    <label class="flex flex-col" for="audio-input">
-                        <select id="audio-input" name="audio"
-                                class="mb-2 h-10 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none">
-                            <option value="mic-1">Microphone 1</option>
-                            <option value="mic-2">Microphone 2</option>
-                            <option value="mic-3">Microphone 3</option>
-                        </select>
-                    </label>
-                    <label for="mic-volume-range">
-                        <input id="mic-volume-range" type="range" value="50"
-                               class="w-full mb-4 h-2 bg-gray-200 rounded-lg appearance-none accent-picton-blue-500 cursor-pointer">
-                    </label>
-                    <div class="flex flex-col gap-2">
-                        <button id="mic-mute-control" type="button"
-                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
-                            Mute
-                        </button>
+                    <div class="flex flex-col w-full">
+                        <label class="flex flex-col" for="audio-input">
+                            <select id="audio-input" name="audio"
+                                    class="text-center mb-2 h-10 border border-gray-300 rounded-lg focus:outline-none">
+                                <option value="mic-1">Microphone 1</option>
+                                <option value="mic-2">Microphone 2</option>
+                                <option value="mic-3">Microphone 3</option>
+                            </select>
+                        </label>
+                        <label for="mic-volume-range">
+                            <input id="mic-volume-range" type="range" value="50"
+                                   class="w-full mb-4 h-2 bg-gray-300 rounded-lg appearance-none accent-picton-blue-500 cursor-pointer">
+                        </label>
+                        <div class="flex flex-col gap-2">
+                            <button id="mic-mute-control" type="button"
+                                    class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
+                                Mute
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +144,7 @@
             <line x1="1" y1="1" x2="1" y2=100% stroke="#A0E9FF" stroke-width="2" stroke-linecap="round"/>
         </svg>
 
-        <div class="flex flex-col items-center mb-6" style="width: 40%;">
+        <div class="flex flex-col items-center mb-6 w-[40%] px-11">
             <svg width="267" height="64" viewBox="0 0 267 64" fill="none" xmlns="http://www.w3.org/2000/svg"
                  class="mb-6">
                 <path d="M59 60.3931C68.911 52.889 101.221 39.7498 151.173 47.2255" stroke="#FFB703"
@@ -150,83 +152,86 @@
                 <path d="M13.5188 37.5995H26.0773V45H3.93172V5.64254H13.5188V37.5995ZM35.4716 10.4641C33.7897 10.4641 32.4068 9.97821 31.3229 9.00643C30.2763 7.99726 29.753 6.76384 29.753 5.30615C29.753 3.81109 30.2763 2.57767 31.3229 1.60588C32.4068 0.596711 33.7897 0.0921284 35.4716 0.0921284C37.1162 0.0921284 38.4618 0.596711 39.5083 1.60588C40.5922 2.57767 41.1342 3.81109 41.1342 5.30615C41.1342 6.76384 40.5922 7.99726 39.5083 9.00643C38.4618 9.97821 37.1162 10.4641 35.4716 10.4641ZM40.2372 13.7159V45H30.6501V13.7159H40.2372ZM61.2571 36.0296L68.0409 13.7159H78.2447L67.1439 45H55.3142L44.2134 13.7159H54.4732L61.2571 36.0296ZM111.77 28.8533C111.77 29.7504 111.714 30.6848 111.602 31.6566H89.9048C90.0543 33.6002 90.671 35.0952 91.755 36.1418C92.8763 37.1509 94.2405 37.6555 95.8477 37.6555C98.2398 37.6555 99.903 36.6464 100.837 34.628H111.041C110.518 36.6837 109.565 38.5339 108.182 40.1784C106.836 41.823 105.136 43.1125 103.08 44.0469C101.024 44.9813 98.7257 45.4485 96.1841 45.4485C93.1192 45.4485 90.3907 44.7944 87.9986 43.4863C85.6065 42.1781 83.7377 40.3092 82.3922 37.8798C81.0466 35.4503 80.3738 32.6097 80.3738 29.3579C80.3738 26.1062 81.0279 23.2656 82.3361 20.8361C83.6816 18.4066 85.5505 16.5378 87.9426 15.2296C90.3347 13.9214 93.0818 13.2673 96.1841 13.2673C99.2116 13.2673 101.903 13.9027 104.257 15.1736C106.612 16.4444 108.444 18.2571 109.752 20.6118C111.097 22.9666 111.77 25.7137 111.77 28.8533ZM101.959 26.3304C101.959 24.6859 101.398 23.3777 100.277 22.4059C99.1555 21.4341 97.7539 20.9482 96.072 20.9482C94.4648 20.9482 93.1005 21.4154 91.9792 22.3498C90.8953 23.2843 90.2225 24.6111 89.9609 26.3304H101.959ZM127.083 25.2652C127.083 21.378 127.924 17.9207 129.606 14.8932C131.288 11.8284 133.624 9.45494 136.614 7.773C139.641 6.05368 143.061 5.19402 146.874 5.19402C151.546 5.19402 155.545 6.42745 158.871 8.8943C162.198 11.3611 164.422 14.725 165.543 18.986H155.003C154.218 17.3414 153.097 16.0893 151.639 15.2296C150.219 14.37 148.593 13.9401 146.762 13.9401C143.809 13.9401 141.417 14.968 139.585 17.0237C137.754 19.0794 136.838 21.8266 136.838 25.2652C136.838 28.7038 137.754 31.451 139.585 33.5067C141.417 35.5624 143.809 36.5903 146.762 36.5903C148.593 36.5903 150.219 36.1605 151.639 35.3008C153.097 34.4411 154.218 33.189 155.003 31.5445H165.543C164.422 35.8054 162.198 39.1693 158.871 41.6361C155.545 44.0656 151.546 45.2803 146.874 45.2803C143.061 45.2803 139.641 44.4394 136.614 42.7574C133.624 41.0381 131.288 38.6647 129.606 35.6372C127.924 32.6097 127.083 29.1524 127.083 25.2652ZM190.644 13.3795C194.233 13.3795 197.111 14.5755 199.278 16.9676C201.446 19.3223 202.53 22.5741 202.53 26.7229V45H192.999V28.0124C192.999 25.9193 192.457 24.2934 191.373 23.1347C190.289 21.9761 188.832 21.3967 187 21.3967C185.169 21.3967 183.711 21.9761 182.627 23.1347C181.543 24.2934 181.001 25.9193 181.001 28.0124V45H171.414V3.51208H181.001V17.9207C181.973 16.5378 183.3 15.4352 184.982 14.6129C186.664 13.7906 188.551 13.3795 190.644 13.3795ZM207.286 29.3019C207.286 26.0875 207.884 23.2656 209.08 20.8361C210.314 18.4066 211.977 16.5378 214.07 15.2296C216.163 13.9214 218.499 13.2673 221.078 13.2673C223.283 13.2673 225.208 13.7159 226.853 14.6129C228.535 15.5099 229.824 16.6873 230.721 18.145V13.7159H240.308V45H230.721V40.5709C229.787 42.0286 228.479 43.2059 226.797 44.103C225.152 45 223.227 45.4485 221.022 45.4485C218.48 45.4485 216.163 44.7944 214.07 43.4863C211.977 42.1407 210.314 40.2532 209.08 37.8237C207.884 35.3569 207.286 32.5162 207.286 29.3019ZM230.721 29.3579C230.721 26.9658 230.048 25.0783 228.703 23.6954C227.395 22.3125 225.787 21.621 223.881 21.621C221.975 21.621 220.349 22.3125 219.004 23.6954C217.695 25.0409 217.041 26.9098 217.041 29.3019C217.041 31.694 217.695 33.6002 219.004 35.0205C220.349 36.4034 221.975 37.0949 223.881 37.0949C225.787 37.0949 227.395 36.4034 228.703 35.0205C230.048 33.6375 230.721 31.75 230.721 29.3579ZM264.68 36.8706V45H259.802C256.326 45 253.617 44.159 251.673 42.4771C249.73 40.7578 248.758 37.9732 248.758 34.1234V21.6771H244.945V13.7159H248.758V6.09106H258.345V13.7159H264.624V21.6771H258.345V34.2356C258.345 35.17 258.569 35.8428 259.018 36.2539C259.466 36.665 260.214 36.8706 261.26 36.8706H264.68Z"
                       fill="#404040"/>
             </svg>
-            <div class="px-11">
-                <div class="flex flex-col bg-white rounded-2xl overflow-hidden">
-                    <div>
-                        <div class="py-5 justify-center border-b-gray-400">
-                            <p class="text-center">Live Chat <%= title %></p>
-                        </div>
-                        <hr>
+            <div class="flex flex-col bg-white rounded-2xl overflow-hidden shadow-xl ">
+                <div>
+                    <div class="py-5 justify-center border-b-gray-400">
+                        <p class="text-center">Live Chat <%= title %></p>
                     </div>
-                    <div id="chat-box" class="flex flex-col h-full px-5 py-5 gap-3 overflow-y-auto"
-                         style="height: 400px;">
-                        <p><span class="mr-4 font-semibold">Sandra</span><span>Wow, lagu ini juara banget!</span></p>
-                        <p>
-                            <span class="mr-4 font-semibold">Rizky</span><span>Salam buat DJ favoritku dari Jakarta!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Mark</span><span>Tolong putar lagu Taylor Swift dong!</span>
-                        </p>
-                        <p>
-                            <span class="mr-4 font-semibold">Anna</span><span>Pusing, bisa minta lagu yang lebih upbeat?</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">David</span><span>Suasana ini bikin pengen ngerumpi sama teman-teman!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Luna</span><span>Ingin denger lagu indie lokal, ada rekomendasi?</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Khaled</span><span>Suara DJ-nya keren banget!</span></p>
-                        <p>
-                            <span class="mr-4 font-semibold">Sophia</span><span>Ini playlist pas banget buat kerja!</span>
-                        </p>
-                        <p>
-                            <span class="mr-4 font-semibold">Yusuf</span><span>Lagu-lagu ini bener-bener nostalgia!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Eva</span><span>Tolong sampaikan salam ke teman-teman di sana!</span>
-                        </p>
-                        <p>
-                            <span class="mr-4 font-semibold">Carlos</span><span>Aduh, lagu favoritku sedang diputar!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Melissa</span><span>Ada kontes apa nih hari ini?</span></p>
-                        <p><span class="mr-4 font-semibold">Ryan</span><span>Playlist-nya kece, tetapkan!</span></p>
-                        <p><span class="mr-4 font-semibold">Nadia</span><span>Bikin suasana hati jadi ceria, terima kasih!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Jasmine</span><span>Suasana di sini keren banget, semoga bisa kesini suatu hari.</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Ahmed</span><span>Apakah ada update terbaru dari artis lokal?</span>
-                        </p>
-                        <p>
-                            <span class="mr-4 font-semibold">Grace</span><span>Harus dicatat nih, lagunya bagus semua!</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Michael</span><span>Mood-ku langsung bagus saat dengerin ini.</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Laura</span><span>Ada rekomendasi lagu yang pas untuk perjalanan?</span>
-                        </p>
-                        <p><span class="mr-4 font-semibold">Daniel</span><span>Bisa ngucapin selamat ulang tahun buat temenku di sana?</span>
-                        </p>
-                    </div>
-                    <div>
-                        <hr>
-                        <form id="on-submit-chat">
-                            <div class=" flex-row py-2 px-5 flex">
-                                <div class="flex flex-col gap-2 mr-3 w-full">
-                                    <label for="name-chat">
-                                        <input class="rounded-2xl border-gray-200 w-full" id="name-chat" type="text"
-                                               placeholder="Nama..">
-                                    </label>
-                                    <label for="new-chat">
-                                        <input class="rounded-2xl border-gray-200 w-full" id="new-chat" type="text"
-                                               placeholder="Chat sebagai pendengar..">
-                                    </label>
-                                </div>
-                                <button id="new-chat-btn" class="p-2 h-auto bg-gray-200 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/>
-                                    </svg>
-                                </button>
+                    <hr>
+                </div>
+                <div id="chat-box" class="flex flex-col h-full px-5 py-5 gap-3 overflow-y-auto"
+                     style="height: 400px;">
+                    <p><span class="mr-4 font-semibold">Sandra</span><span>Wow, lagu ini juara banget!</span></p>
+                    <p>
+                        <span class="mr-4 font-semibold">Rizky</span><span>Salam buat DJ favoritku dari Jakarta!</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Mark</span><span>Tolong putar lagu Taylor Swift dong!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Anna</span><span>Pusing, bisa minta lagu yang lebih upbeat?</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">David</span><span>Suasana ini bikin pengen ngerumpi sama teman-teman!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Luna</span><span>Ingin denger lagu indie lokal, ada rekomendasi?</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Khaled</span><span>Suara DJ-nya keren banget!</span></p>
+                    <p>
+                        <span class="mr-4 font-semibold">Sophia</span><span>Ini playlist pas banget buat kerja!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Yusuf</span><span>Lagu-lagu ini bener-bener nostalgia!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Eva</span><span>Tolong sampaikan salam ke teman-teman di sana!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Carlos</span><span>Aduh, lagu favoritku sedang diputar!</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Melissa</span><span>Ada kontes apa nih hari ini?</span></p>
+                    <p><span class="mr-4 font-semibold">Ryan</span><span>Playlist-nya kece, tetapkan!</span></p>
+                    <p>
+                        <span class="mr-4 font-semibold">Nadia</span><span>Bikin suasana hati jadi ceria, terima kasih!</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Jasmine</span><span>Suasana di sini keren banget, semoga bisa kesini suatu hari.</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Ahmed</span><span>Apakah ada update terbaru dari artis lokal?</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Grace</span><span>Harus dicatat nih, lagunya bagus semua!</span>
+                    </p>
+                    <p>
+                        <span class="mr-4 font-semibold">Michael</span><span>Mood-ku langsung bagus saat dengerin ini.</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Laura</span><span>Ada rekomendasi lagu yang pas untuk perjalanan?</span>
+                    </p>
+                    <p><span class="mr-4 font-semibold">Daniel</span><span>Bisa ngucapin selamat ulang tahun buat temenku di sana?</span>
+                    </p>
+                </div>
+                <div>
+                    <hr>
+                    <form id="on-submit-chat">
+                        <div class=" flex-row py-2 px-5 flex">
+                            <div class="flex flex-col gap-2 mr-3 w-full">
+                                <label for="name-chat">
+                                    <input class="rounded-2xl border-gray-200 w-full" id="name-chat" type="text"
+                                           placeholder="Nama..">
+                                </label>
+                                <label for="new-chat">
+                                    <input class="rounded-2xl border-gray-200 w-full" id="new-chat" type="text"
+                                           placeholder="Chat sebagai pendengar..">
+                                </label>
                             </div>
-                        </form>
-                    </div>
+                            <button id="new-chat-btn" class="p-2 h-auto bg-gray-200 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
