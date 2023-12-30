@@ -129,33 +129,3 @@ socket.on("answer", (viewerId, event) => {
       new RTCSessionDescription(event)
   );
 });
-
-
-
-            broadcastBtn.addEventListener('click', () => {
-                broadcastBtn.classList.toggle('bg-reid-peach');
-                broadcastBtn.classList.toggle('bg-gray-200');
-                stopBroadcastBtn.classList.toggle('bg-reid-peach', !broadcastBtn.classList.contains('bg-reid-peach'));
-                stopBroadcastBtn.classList.toggle('bg-gray-200', !broadcastBtn.classList.contains('bg-gray-200'));
-            });
-
-            stopBroadcastBtn.addEventListener('click', () => {
-                stopBroadcastBtn.classList.toggle('bg-reid-peach');
-                stopBroadcastBtn.classList.toggle('bg-gray-200');
-                broadcastBtn.classList.toggle('bg-reid-peach', !stopBroadcastBtn.classList.contains('bg-reid-peach'));
-                broadcastBtn.classList.toggle('bg-gray-200', !stopBroadcastBtn.classList.contains('bg-gray-200'));
-            });
-
-            broadcastAudioBtn.addEventListener('click', () => {
-                broadcastAudioBtn.classList.toggle('bg-blue-700');
-                broadcastAudioBtn.classList.toggle('bg-gray-200');
-                stopBroadcastAudioBtn.classList.toggle('bg-blue-700', !broadcastAudioBtn.classList.contains('bg-blue-700'));
-                stopBroadcastAudioBtn.classList.toggle('bg-gray-200', !broadcastAudioBtn.classList.contains('bg-gray-200'));
-            });
-
-            stopBroadcastAudioBtn.addEventListener('click', () => {
-                stopBroadcastAudioBtn.classList.toggle('bg-blue-700');
-                stopBroadcastAudioBtn.classList.toggle('bg-gray-200');
-                broadcastAudioBtn.classList.toggle('bg-blue-700', !stopBroadcastAudioBtn.classList.contains('bg-blue-700'));
-                broadcastAudioBtn.classList.toggle('bg-gray-200', !stopBroadcastAudioBtn.classList.contains('bg-gray-200'));
-            });
