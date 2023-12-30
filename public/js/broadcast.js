@@ -18,7 +18,10 @@ let isMonitorAudioMuted = false;
 
 let socket = io();
 
-btnStartBroadcast.addEventListener('click', () => {
+const localStream = new MediaStream()
+const audioTracks = []
+
+btnStartBroadcast.addEventListener('clickasd', () => {
   // let audioTrack;
   const file = fileInput.files[0]
   user = {
@@ -30,13 +33,12 @@ btnStartBroadcast.addEventListener('click', () => {
     return alert("Please insert audio file!")
   }
 
-  console.log('file', file)
-
   const reader = new FileReader()
   console.log('reader', reader)
 
   reader.onload = ((readEvent) => {
     console.log('read', readEvent)
+    console.log('result', readEvent.target.result)
     setStatus("Processing audio file...")
     context.decodeAudioData(readEvent.target.result)
         .then((buffer) => {
@@ -46,8 +48,10 @@ btnStartBroadcast.addEventListener('click', () => {
           source.start(0);
           const audioConnect = source.connect(destination)
           const audioTrack = audioConnect.stream.getAudioTracks()[0]
+          console.log(audioConnect.stream.getAudioTracks())
 
           const localStream = new MediaStream()
+
           localStream.addTrack(audioTrack)
           audioStream.srcObject = localStream
           audioMonitor.srcObject = localStream
@@ -67,6 +71,7 @@ const setStatus = (message) => {
 }
 
 muteUnmuteAudioMonitor.addEventListener('click', () => {
+  console.log('audioTracks', audioTracks)
   if (isMonitorAudioMuted) {
     isMonitorAudioMuted = false
     audioMonitor.muted = false
@@ -84,6 +89,7 @@ socket.on("new viewer", async (viewer, iceServers) => {
   rtcPeerConnections[viewer.id] = new RTCPeerConnection({iceServers: [iceServers]});
 
   const stream = audioStream.srcObject;
+  console.log(stream.getTracks())
   stream
       .getTracks()
       .forEach((track) => rtcPeerConnections[viewer.id].addTrack(track, stream))
