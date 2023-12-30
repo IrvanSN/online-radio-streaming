@@ -12,8 +12,8 @@
 </head>
 <body class="h-full w-full">
 <div class="h-full flex flex-col">
-    <div class="flex flex-row sm:flex-col">
-        <div class="flex flex-col items-center mb-6" style="width: 70%;">
+    <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col items-center mb-6" style="width: 60%;">
             <svg width="450" height="64" viewBox="0 0 476 64" fill="none" xmlns="http://www.w3.org/2000/svg"
                  class="mb-6">
                 <path d="M123 60.393C132.911 52.8889 165.221 39.7497 215.173 47.2255" stroke="#FFB703"
@@ -34,16 +34,16 @@
             <div class="flex gap-3 w-1/2">
                 <div class="flex flex-col justify-center gap-1 w-full">
                     <p class="text-white font-medium text-center">Broadcast</p>
-                    <button id="mute-unmute-audio-monitor" type="button"
-                            class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-picton-blue-500 hover:bg-picton-blue-600 focus:outline-none focus:ring-picton-blue-700"
+                    <button id="broadcast-control" type="button"
+                            class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-picton-blue-500 hover:bg-picton-blue-600 focus:outline-none focus:ring-picton-blue-400"
                     >
                         Start Now
                     </button>
                 </div>
                 <div class="flex flex-col justify-center gap-1 w-full">
                     <p class="text-white font-medium text-center">Monitoring Audio</p>
-                    <button id="mute-unmute-audio-monitor" type="button"
-                            class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-700"
+                    <button id="audio-monitor-control" type="button"
+                            class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400"
                     >
                         Mute
                     </button>
@@ -65,7 +65,7 @@
                     </label>
                     <div class="flex flex-col gap-2">
                         <button id="music-mute-control" type="button"
-                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-700">
+                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
                             Mute
                         </button>
                     </div>
@@ -85,7 +85,7 @@
                     </label>
                     <div class="flex flex-col gap-2">
                         <button id="mic-mute-control" type="button"
-                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-700">
+                                class="w-full text-white focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 bg-radical-red-500 hover:bg-radical-red-600 focus:outline-none focus:ring-radical-red-400">
                             Mute
                         </button>
                     </div>
@@ -137,10 +137,12 @@
 
             </div>
         </div>
+
         <svg style="width: 2px; height: 500px; display: block; margin: auto;" xmlns="http://www.w3.org/2000/svg">
             <line x1="1" y1="1" x2="1" y2=100% stroke="#A0E9FF" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <div class="flex flex-col items-center mb-6" style="width: 30%;">
+
+        <div class="flex flex-col items-center mb-6" style="width: 40%;">
             <svg width="267" height="64" viewBox="0 0 267 64" fill="none" xmlns="http://www.w3.org/2000/svg"
                  class="mb-6">
                 <path d="M59 60.3931C68.911 52.889 101.221 39.7498 151.173 47.2255" stroke="#FFB703"
@@ -255,54 +257,9 @@
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/broadcast-control.js"></script>
 <script src="/js/broadcast.js"></script>
 <script src="/js/playlist.js"></script>
-<script>
-  const broadcastBtn = document.getElementById('broadcastBtn');
-  const stopBroadcastBtn = document.getElementById('stopBroadcastBtn');
-  const broadcastAudioBtn = document.getElementById('broadcastAudioBtn');
-  const stopBroadcastAudioBtn = document.getElementById('stopBroadcastAudioBtn');
-
-  broadcastBtn.addEventListener('click', () => {
-    broadcastBtn.classList.toggle('bg-blue-700');
-    broadcastBtn.classList.toggle('bg-gray-200');
-    stopBroadcastBtn.classList.toggle('bg-reid-peach', !broadcastBtn.classList.contains('bg-blue-700'));
-    stopBroadcastBtn.classList.toggle('bg-gray-200', !broadcastBtn.classList.contains('bg-gray-200'));
-
-    stopBroadcastBtn.disabled = false;
-    broadcastBtn.disabled = true;
-  });
-
-  stopBroadcastBtn.addEventListener('click', () => {
-    stopBroadcastBtn.classList.toggle('bg-reid-peach');
-    stopBroadcastBtn.classList.toggle('bg-gray-200');
-    broadcastBtn.classList.toggle('bg-blue-700', !stopBroadcastBtn.classList.contains('bg-blue-700'));
-    broadcastBtn.classList.toggle('bg-gray-200', !stopBroadcastBtn.classList.contains('bg-gray-200'));
-
-    stopBroadcastBtn.disabled = true;
-    broadcastBtn.disabled = false;
-  });
-
-  broadcastAudioBtn.addEventListener('click', () => {
-    broadcastAudioBtn.classList.toggle('bg-blue-700');
-    broadcastAudioBtn.classList.toggle('bg-gray-200');
-    stopBroadcastAudioBtn.classList.toggle('bg-reid-peach', !broadcastAudioBtn.classList.contains('bg-blue-700'));
-    stopBroadcastAudioBtn.classList.toggle('bg-gray-200', !broadcastAudioBtn.classList.contains('bg-gray-200'));
-
-    stopBroadcastAudioBtn.disabled = false;
-    broadcastAudioBtn.disabled = true;
-  });
-
-  stopBroadcastAudioBtn.addEventListener('click', () => {
-    stopBroadcastAudioBtn.classList.toggle('bg-reid-peach');
-    stopBroadcastAudioBtn.classList.toggle('bg-gray-200');
-    broadcastAudioBtn.classList.toggle('bg-blue-700', !stopBroadcastAudioBtn.classList.contains('bg-blue-700'));
-    broadcastAudioBtn.classList.toggle('bg-gray-200', !stopBroadcastAudioBtn.classList.contains('bg-gray-200'));
-
-    stopBroadcastAudioBtn.disabled = true;
-    broadcastAudioBtn.disabled = false;
-  });
-</script>
 </body>
 </html>
 
