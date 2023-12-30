@@ -11,29 +11,6 @@ playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
 let user;
 let rtcPeerConnections = {};
 
-// constants
-const iceServers = {
-//   TODO
-  iceServers: [
-    {
-      urls: ["stun:ss-turn1.xirsys.com"],
-    },
-    {
-      username:
-          "AmBgp9EwD9Yun3B0fGZUx-bpxJZC_OlKLAEB8yGtnFiH1VmkSJCO-8KRYa7MsyouAAAAAGU6jkhpcnZhbnNu",
-      credential: "7b113ad4-7419-11ee-be6b-0242ac140004",
-      urls: [
-        "turn:ss-turn1.xirsys.com:80?transport=udp",
-        // "turn:ss-turn1.xirsys.com:3478?transport=udp",
-        "turn:ss-turn1.xirsys.com:80?transport=tcp",
-        // "turn:ss-turn1.xirsys.com:3478?transport=tcp",
-        // "turns:ss-turn1.xirsys.com:443?transport=tcp",
-        // "turns:ss-turn1.xirsys.com:5349?transport=tcp",
-      ],
-    },
-  ]
-};
-
 let socket = io();
 
 playPauseBtn.addEventListener('click', () => {
@@ -59,9 +36,7 @@ user = {
 
 socket.emit("register as viewer", user);
 
-socket.on("candidate", function (id, event) {
-  console.log("b", id);
-  console.log("b", rtcPeerConnections);
+socket.on("candidate", (id, event) => {
   let candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -69,10 +44,8 @@ socket.on("candidate", function (id, event) {
   rtcPeerConnections[id].addIceCandidate(candidate);
 });
 
-socket.on("offer", function (broadcaster, sdp) {
-  console.log("c", broadcaster.id);
-  console.log("c", rtcPeerConnections);
-  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection(iceServers);
+socket.on("offer", async (broadcaster, sdp, iceServers) => {
+  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection({iceServers: [iceServers]});
 
   rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
 
