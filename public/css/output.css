@@ -544,6 +544,14 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.z-\[-1\] {
+  z-index: -1;
+}
+
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -556,10 +564,6 @@ video {
 
 .mb-2 {
   margin-bottom: 0.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .mb-6 {
@@ -610,6 +614,10 @@ video {
   height: 1.5rem;
 }
 
+.h-\[0\.1px\] {
+  height: 0.1px;
+}
+
 .h-auto {
   height: auto;
 }
@@ -632,6 +640,18 @@ video {
 
 .w-80 {
   width: 20rem;
+}
+
+.w-\[0\.1px\] {
+  width: 0.1px;
+}
+
+.w-\[5\%\] {
+  width: 5%;
+}
+
+.w-\[95\%\] {
+  width: 95%;
 }
 
 .w-full {
@@ -890,6 +910,10 @@ video {
 
 .accent-picton-blue-500 {
   accent-color: #00a9ff;
+}
+
+.opacity-0 {
+  opacity: 0;
 }
 
 .shadow {
