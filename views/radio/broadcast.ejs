@@ -104,7 +104,7 @@
             <div class="mt-5 w-full border border-picton-blue-100 p-5 rounded-2xl bg-white shadow-xl">
                 <div class="mb-2 flex w-full justify-center">
                     <p class="text-xl font-medium text-center w-[95%]">Playlist Lagu</p>
-                    <button id="media-data">DATA</button>
+                    <button id="media-data">LOG</button>
                     <label class="w-[5%] cursor-pointer" id="label-upload-playlist" for="upload-playlist">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="currentColor" class="w-6 h-6">
@@ -249,14 +249,15 @@
                   fill="#FAFAFA"/>
         </svg>
     </div>
+
     <audio id="audio-monitor"></audio>
     <audio id="audio-stream" muted></audio>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/playlist.js"></script>
 <script src="/js/broadcast-control.js"></script>
 <script src="/js/broadcast.js"></script>
-<script src="/js/playlist.js"></script>
 </body>
 </html>
 
