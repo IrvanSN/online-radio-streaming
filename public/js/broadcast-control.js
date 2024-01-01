@@ -12,13 +12,15 @@ audioMonitor.play();
 
 // Source Control
 const musicAudioGain = audioContext.createGain();
-musicAudioGain.gain.value = 0.5;
+let currentMusicAudioGain = 50;
+musicAudioGain.gain.value = currentMusicAudioGain / 100;
 const musicVolumeInput = document.getElementById("music-volume-range");
 let isMusicMuted = false;
 const musicCtrlBtn = document.getElementById("music-mute-control");
 
 const micAudioGain = audioContext.createGain();
-micAudioGain.gain.value = 0.5;
+let currentMicAudioGain = 50;
+micAudioGain.gain.value = currentMicAudioGain / 100;
 const micVolumeInput = document.getElementById("mic-volume-range");
 let isMicMuted = false;
 const micCtrlBtn = document.getElementById("mic-mute-control");
@@ -141,6 +143,7 @@ audioMonitorCtrlBtn.addEventListener("click", () => {
 });
 
 musicVolumeInput.addEventListener("input", () => {
+  currentMusicAudioGain = musicVolumeInput.value;
   musicAudioGain.gain.value = musicVolumeInput.value / 100;
 });
 
@@ -155,6 +158,10 @@ musicCtrlBtn.addEventListener("click", () => {
       "focus:ring-picton-blue-400",
       "focus:ring-radical-red-400",
     );
+
+    musicAudioGain.gain.value = currentMusicAudioGain / 100;
+    musicVolumeInput.value = currentMusicAudioGain;
+    musicVolumeInput.disabled = false;
     isMusicMuted = false;
     musicCtrlBtn.innerHTML = "Mute";
   } else {
@@ -167,6 +174,10 @@ musicCtrlBtn.addEventListener("click", () => {
       "focus:ring-radical-red-400",
       "focus:ring-picton-blue-400",
     );
+
+    musicAudioGain.gain.value = 0;
+    musicVolumeInput.value = 0;
+    musicVolumeInput.disabled = true;
     isMusicMuted = true;
     musicCtrlBtn.innerHTML = "Unmute";
   }
@@ -175,6 +186,7 @@ musicCtrlBtn.addEventListener("click", () => {
 });
 
 micVolumeInput.addEventListener("input", () => {
+  currentMicAudioGain = micVolumeInput.value;
   micAudioGain.gain.value = micVolumeInput.value / 100;
 });
 
@@ -189,6 +201,10 @@ micCtrlBtn.addEventListener("click", () => {
       "focus:ring-picton-blue-400",
       "focus:ring-radical-red-400",
     );
+
+    micAudioGain.gain.value = currentMicAudioGain / 100;
+    micVolumeInput.value = currentMicAudioGain;
+    micVolumeInput.disabled = false;
     isMicMuted = false;
     micCtrlBtn.innerHTML = "Mute";
   } else {
@@ -201,6 +217,10 @@ micCtrlBtn.addEventListener("click", () => {
       "focus:ring-radical-red-400",
       "focus:ring-picton-blue-400",
     );
+
+    micAudioGain.gain.value = 0;
+    micVolumeInput.value = 0;
+    micVolumeInput.disabled = true;
     isMicMuted = true;
     micCtrlBtn.innerHTML = "Unmute";
   }
