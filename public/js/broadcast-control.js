@@ -92,18 +92,12 @@ const handleMusicChanges = (index) => {
   );
 
   if (currentMusicMediaStreamSource) {
-    // currentMusicMediaStreamSource.mediaStream
-    //   .getAudioTracks()
-    //   .forEach((item) =>
-    //     currentMusicMediaStreamSource.mediaStream.removeTrack(item),
-    //   );
     currentMusicMediaStreamSource.disconnect();
   }
 
   const destination = audioContext.createMediaStreamDestination();
   const musicMediaStream = source.connect(destination);
 
-  // const audioTrack = generateAudioTracks(index);
   mediaStream.addTrack(musicMediaStream.stream.getAudioTracks()[0]);
 
   currentMusicMediaStreamSource =
@@ -117,8 +111,6 @@ const handleMusicChanges = (index) => {
 };
 
 broadcastCtrlBtn.addEventListener("click", () => {
-  console.log("================================");
-  console.log("================================");
   if (isBroadcasting) {
     broadcastCtrlBtn.classList.replace(
       "bg-radical-red-500",
