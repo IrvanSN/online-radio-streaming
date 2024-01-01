@@ -3,6 +3,8 @@ const broadcastCtrlBtn = document.getElementById("broadcast-control");
 let isAudioMonitorMuted = false;
 const audioMonitorCtrlBtn = document.getElementById("audio-monitor-control");
 
+const micSelectorDevice = document.getElementById("audio-input");
+
 const audioContext = new AudioContext();
 const stream = audioContext.createMediaStreamDestination();
 
@@ -20,17 +22,22 @@ let isMusicMuted = false;
 const musicCtrlBtn = document.getElementById("music-mute-control");
 
 const micAudioGain = audioContext.createGain();
+let currentMicMediaStreamSource;
 let currentMicAudioGain = 50;
 micAudioGain.gain.value = currentMicAudioGain / 100;
 const micVolumeInput = document.getElementById("mic-volume-range");
 let isMicMuted = false;
 const micCtrlBtn = document.getElementById("mic-mute-control");
 
-const handleMicStream = (mediaStream) => {
-  const micMediaStreamSource =
+const handleMicDeviceChanges = (mediaStream) => {
+  if (currentMicMediaStreamSource) {
+    currentMicMediaStreamSource.disconnect();
+  }
+
+  currentMicMediaStreamSource =
     audioContext.createMediaStreamSource(mediaStream);
 
-  micMediaStreamSource.connect(micAudioGain);
+  currentMicMediaStreamSource.connect(micAudioGain);
   micAudioGain.connect(stream);
   console.log("mic ready");
 };
@@ -38,11 +45,39 @@ const handleMicStream = (mediaStream) => {
 navigator.mediaDevices
   .getUserMedia({ video: false, audio: true })
   .then((mediaStream) => {
-    handleMicStream(mediaStream);
+    handleMicDeviceChanges(mediaStream);
   })
   .catch((err) => {
     console.error(`got an error: ${err}`);
   });
+
+navigator.mediaDevices.enumerateDevices().then((r) => {
+  const audioInput = r.filter((item) => item.kind === "audioinput");
+
+  audioInput.map((item) => {
+    const option = document.createElement("option");
+    if (item.deviceId === "default") {
+      option.setAttribute("selected", "selected");
+    }
+    option.innerHTML = item.label;
+    option.value = item.deviceId;
+    micSelectorDevice.appendChild(option);
+  });
+});
+
+micSelectorDevice.addEventListener("change", () => {
+  navigator.mediaDevices
+    .getUserMedia({
+      video: false,
+      audio: {
+        deviceId: { exact: micSelectorDevice.value },
+      },
+    })
+    .then((mediaStream) => handleMicDeviceChanges(mediaStream))
+    .catch((err) => {
+      console.error(`got an error: ${err}`);
+    });
+});
 
 const handleMusicChanges = (index) => {
   const mediaStream = new MediaStream();
