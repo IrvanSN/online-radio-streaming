@@ -1,17 +1,8 @@
 const emptyPlaylistNotification = document.getElementById("music-empty");
 const playlistUploadInput = document.getElementById("upload-playlist");
+const musicPlayingTitle = document.getElementById("music-playing-title");
 
 const playlistAudioBuffers = [];
-// const audioCtx = new AudioContext();
-
-const createAudioBuffer = (buffer) => {
-  const source = audioContext.createBufferSource();
-  source.buffer = buffer;
-  source.start(0);
-  playlistAudioBuffers.push(source);
-  // const destination = audioCtx.createMediaStreamDestination();
-  // const audioMediaStream = source.connect(destination);
-};
 
 const deleteIcon = `
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -61,6 +52,7 @@ mediaData.addEventListener("click", () => {
   console.log("musicMediaStreams data", musicMediaStreams);
   console.log("playlistUploadInput.files", playlistUploadInput.files);
   console.log("playlistAudioBuffers", playlistAudioBuffers);
+  console.log("currentMusicMediaStreamSource", currentMusicMediaStreamSource);
 });
 
 playlistUploadInput.addEventListener("change", () => {
@@ -78,7 +70,7 @@ playlistUploadInput.addEventListener("change", () => {
           .decodeAudioData(readEvent.target.result)
           .then((buffer) => {
             const currentRowLength = playlistAudioBuffers.length;
-            createAudioBuffer(buffer);
+            playlistAudioBuffers.push(buffer);
             const id = new Date().getTime().toString();
 
             const wrapperElement = document.createElement("div");
@@ -99,6 +91,7 @@ playlistUploadInput.addEventListener("change", () => {
             wrapperElement.appendChild(separator);
 
             const titleList = document.createElement("p");
+            titleList.classList.add("music-title");
             titleList.innerHTML = file.name;
 
             const listRow = document.createElement("div");

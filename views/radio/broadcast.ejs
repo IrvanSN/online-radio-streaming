@@ -54,8 +54,8 @@
                 <p class="mb-2 text-xl font-medium text-center">Source Control</p>
                 <div class="flex flex-col gap-3 w-full sm:flex-row">
                     <div class="flex flex-col w-full">
-                        <div class="h-10 bg-white mb-2 rounded-md flex px-1 justify-center items-center border border-gray-300">
-                            <p>Now playing cukurukuk.mp3</p>
+                        <div class="h-10 w-full bg-white mb-2 rounded-md flex px-1 justify-center items-center border border-gray-300">
+                            <p id="music-playing-title" class="text-center truncate">...</p>
                         </div>
                         <label class="flex justify-center items-center mb-2" for="music-volume-range">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -74,15 +74,12 @@
                         </div>
                     </div>
                     <div class="flex flex-col w-full">
-                        <label class="flex flex-col" for="audio-input">
+                        <label class="w-full flex flex-col" for="audio-input">
                             <select id="audio-input" name="audio"
                                     class="text-center mb-2 h-10 border border-gray-300 rounded-lg focus:outline-none">
-                                <option value="mic-1">Microphone 1</option>
-                                <option value="mic-2">Microphone 2</option>
-                                <option value="mic-3">Microphone 3</option>
                             </select>
                         </label>
-                        <label class="flex justify-center items-center mb-2" for="mic-volume-range">
+                        <label class="w-full flex justify-center items-center mb-2" for="mic-volume-range">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                  stroke="currentColor" class="w-6 h-6 mr-2">
                                 <path stroke-linecap="round" stroke-linejoin="round"

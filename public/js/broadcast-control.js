@@ -12,6 +12,7 @@ audioMonitor.play();
 
 // Source Control
 const musicAudioGain = audioContext.createGain();
+let currentMusicMediaStreamSource;
 let currentMusicAudioGain = 50;
 musicAudioGain.gain.value = currentMusicAudioGain / 100;
 const musicVolumeInput = document.getElementById("music-volume-range");
@@ -43,30 +44,46 @@ navigator.mediaDevices
     console.error(`got an error: ${err}`);
   });
 
-const generateAudioTracks = (index) => {
-  const tempMusicMediaStreamDestination =
-    audioContext.createMediaStreamDestination();
-  const tempMusicMediaStream = playlistAudioBuffers[index].connect(
-    tempMusicMediaStreamDestination,
-  );
-
-  return tempMusicMediaStream.stream.getAudioTracks()[0];
-};
-
 const handleMusicChanges = (index) => {
   const mediaStream = new MediaStream();
+  const buffer = playlistAudioBuffers[index];
+  const source = audioContext.createBufferSource();
+  source.buffer = buffer;
+  source.start(0);
+  source.addEventListener("ended", () =>
+    playlistAudioBuffers.length - 1 !== index
+      ? handleMusicChanges(index + 1)
+      : null,
+  );
 
-  const audioTrack = generateAudioTracks(index);
-  mediaStream.addTrack(audioTrack);
+  if (currentMusicMediaStreamSource) {
+    // currentMusicMediaStreamSource.mediaStream
+    //   .getAudioTracks()
+    //   .forEach((item) =>
+    //     currentMusicMediaStreamSource.mediaStream.removeTrack(item),
+    //   );
+    currentMusicMediaStreamSource.disconnect();
+  }
 
-  const musicMediaStreamSource =
+  const destination = audioContext.createMediaStreamDestination();
+  const musicMediaStream = source.connect(destination);
+
+  // const audioTrack = generateAudioTracks(index);
+  mediaStream.addTrack(musicMediaStream.stream.getAudioTracks()[0]);
+
+  currentMusicMediaStreamSource =
     audioContext.createMediaStreamSource(mediaStream);
 
-  musicMediaStreamSource.connect(musicAudioGain);
+  currentMusicMediaStreamSource.connect(musicAudioGain);
   musicAudioGain.connect(stream);
+
+  musicPlayingTitle.innerHTML =
+    document.querySelectorAll(".music-title")[index].innerHTML;
 };
 
 broadcastCtrlBtn.addEventListener("click", () => {
+  console.log("================================");
+  console.log("================================");
   if (isBroadcasting) {
     broadcastCtrlBtn.classList.replace(
       "bg-radical-red-500",
