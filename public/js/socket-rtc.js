@@ -2,7 +2,6 @@ let rtcPeerConnections = {};
 
 // socket message handlers
 socket.on("new viewer", async (viewer, iceServers) => {
-  console.log("iceServers", iceServers);
   rtcPeerConnections[viewer.id] = new RTCPeerConnection({
     iceServers: [iceServers],
   });
