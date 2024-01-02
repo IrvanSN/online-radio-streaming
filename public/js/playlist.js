@@ -2,6 +2,8 @@ const emptyPlaylistNotification = document.getElementById("music-empty");
 const playlistUploadInput = document.getElementById("upload-playlist");
 const musicPlayingTitle = document.getElementById("music-playing-title");
 
+const audioCtx = new AudioContext();
+
 const playlistAudioBuffers = [];
 
 const deleteIcon = `
@@ -66,7 +68,7 @@ playlistUploadInput.addEventListener("change", () => {
     tempFiles.map((file) => {
       const reader = new FileReader();
       reader.onload = (readEvent) => {
-        context
+        audioCtx
           .decodeAudioData(readEvent.target.result)
           .then((buffer) => {
             const currentRowLength = playlistAudioBuffers.length;
