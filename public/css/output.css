@@ -909,6 +909,11 @@ video {
   color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
+.text-radical-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(254 80 104 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));

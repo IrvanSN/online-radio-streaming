@@ -51,6 +51,16 @@ const main = (redis, iceServers) => {
 
       broadcasters[room] = socket.id;
       console.log("broadcasters", broadcasters);
+    });
+
+    socket.on("broadcaster get chat data", async (room) => {
+      const chatData = await redis.zRange(`room:${room}:chats`, 0, -1);
+      const usersOnline = await redis.get(`room:${room}:online_users`);
+      socket.emit("live-chat-data", {
+        chats: chatData.map((item) => JSON.parse(item)),
+        currentListeners: parseInt(usersOnline),
+      });
+
       socket.join(room);
     });
 
@@ -138,6 +148,9 @@ const startRedis = (iceServers) => {
     .then((redis) => main(redis, iceServers))
     .catch((e) => console.log("start redis error!", e));
 };
+
+// TODO DEV
+// startRedis({});
 
 fetch(`https://global.xirsys.net/_turn/${process.env.ICE_STUN_API_CHANNEL}`, {
   method: "PUT",

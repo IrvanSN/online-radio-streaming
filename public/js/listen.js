@@ -1,8 +1,9 @@
-const radioId = document.getElementById('radioId').value
-console.log('radioId', radioId)
-const audioStream = document.getElementById('audio-stream')
-const playPauseBtn = document.getElementById('play-pause-btn')
-const musicContainer = document.getElementById("music-container")
+const radioId = document.getElementById("radioId").value;
+const userRole = "listener";
+console.log("radioId", radioId);
+const audioStream = document.getElementById("audio-stream");
+const playPauseBtn = document.getElementById("play-pause-btn");
+const musicContainer = document.getElementById("music-container");
 
 let isPlay = true;
 musicContainer.classList.add("play-pause-btn");
@@ -13,26 +14,26 @@ let rtcPeerConnections = {};
 
 let socket = io();
 
-playPauseBtn.addEventListener('click', () => {
+playPauseBtn.addEventListener("click", () => {
   if (isPlay) {
     isPlay = false;
-    audioStream.pause()
+    audioStream.pause();
     musicContainer.classList.remove("play-pause-btn");
     playPauseBtn.querySelector("i.fas").classList.add("fa-play");
     playPauseBtn.querySelector("i.fas").classList.remove("fa-pause");
   } else {
     isPlay = true;
-    audioStream.play()
+    audioStream.play();
     musicContainer.classList.add("play-pause-btn");
     playPauseBtn.querySelector("i.fas").classList.remove("fa-play");
     playPauseBtn.querySelector("i.fas").classList.add("fa-pause");
   }
-})
+});
 
 user = {
   room: radioId,
-  name: 'a'
-}
+  name: "a",
+};
 
 socket.emit("register as viewer", user);
 
@@ -45,26 +46,28 @@ socket.on("candidate", (id, event) => {
 });
 
 socket.on("offer", async (broadcaster, sdp, iceServers) => {
-  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection({iceServers: [iceServers]});
+  rtcPeerConnections[broadcaster.id] = new RTCPeerConnection({
+    iceServers: [iceServers],
+  });
 
   rtcPeerConnections[broadcaster.id].setRemoteDescription(sdp);
 
   rtcPeerConnections[broadcaster.id]
-      .createAnswer()
-      .then((sessionDescription) => {
-        rtcPeerConnections[broadcaster.id].setLocalDescription(
-            sessionDescription
-        );
-        socket.emit("answer", {
-          type: "answer",
-          sdp: sessionDescription,
-          room: user.room,
-        });
+    .createAnswer()
+    .then((sessionDescription) => {
+      rtcPeerConnections[broadcaster.id].setLocalDescription(
+        sessionDescription,
+      );
+      socket.emit("answer", {
+        type: "answer",
+        sdp: sessionDescription,
+        room: user.room,
       });
+    });
 
   rtcPeerConnections[broadcaster.id].ontrack = (event) => {
     audioStream.srcObject = event.streams[0];
-    audioStream.play()
+    audioStream.play();
   };
 
   rtcPeerConnections[broadcaster.id].onicecandidate = (event) => {
@@ -78,4 +81,4 @@ socket.on("offer", async (broadcaster, sdp, iceServers) => {
       });
     }
   };
-})
+});

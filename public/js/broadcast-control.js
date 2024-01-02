@@ -1,5 +1,6 @@
 let socket = io();
 
+const userRole = "broadcaster";
 const radioId = document.getElementById("radioId").value;
 const radioName = document.getElementById("radioName").value;
 

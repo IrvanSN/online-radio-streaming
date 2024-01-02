@@ -1,5 +1,7 @@
 let rtcPeerConnections = {};
 
+socket.emit("broadcaster get chat data", radioId);
+
 // socket message handlers
 socket.on("new viewer", async (viewer, iceServers) => {
   rtcPeerConnections[viewer.id] = new RTCPeerConnection({

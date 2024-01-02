@@ -142,66 +142,20 @@
             <div class="w-full flex flex-col bg-white rounded-2xl overflow-hidden shadow-xl ">
                 <div>
                     <div class="py-5 justify-center border-b-gray-400">
-                        <p class="text-center">Live Chat <%= title %></p>
+                        <p class="text-center">Live Chat <%= title %> (<span id="current-listeners"></span>)</p>
                     </div>
                     <hr>
                 </div>
                 <div id="chat-box" class="flex flex-col h-full px-5 py-5 gap-3 overflow-y-auto"
                      style="height: 400px;">
-                    <p><span class="mr-4 font-semibold">Sandra</span><span>Wow, lagu ini juara banget!</span></p>
-                    <p>
-                        <span class="mr-4 font-semibold">Rizky</span><span>Salam buat DJ favoritku dari Jakarta!</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Mark</span><span>Tolong putar lagu Taylor Swift dong!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Anna</span><span>Pusing, bisa minta lagu yang lebih upbeat?</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">David</span><span>Suasana ini bikin pengen ngerumpi sama teman-teman!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Luna</span><span>Ingin denger lagu indie lokal, ada rekomendasi?</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Khaled</span><span>Suara DJ-nya keren banget!</span></p>
-                    <p>
-                        <span class="mr-4 font-semibold">Sophia</span><span>Ini playlist pas banget buat kerja!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Yusuf</span><span>Lagu-lagu ini bener-bener nostalgia!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Eva</span><span>Tolong sampaikan salam ke teman-teman di sana!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Carlos</span><span>Aduh, lagu favoritku sedang diputar!</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Melissa</span><span>Ada kontes apa nih hari ini?</span></p>
-                    <p><span class="mr-4 font-semibold">Ryan</span><span>Playlist-nya kece, tetapkan!</span></p>
-                    <p>
-                        <span class="mr-4 font-semibold">Nadia</span><span>Bikin suasana hati jadi ceria, terima kasih!</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Jasmine</span><span>Suasana di sini keren banget, semoga bisa kesini suatu hari.</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Ahmed</span><span>Apakah ada update terbaru dari artis lokal?</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Grace</span><span>Harus dicatat nih, lagunya bagus semua!</span>
-                    </p>
-                    <p>
-                        <span class="mr-4 font-semibold">Michael</span><span>Mood-ku langsung bagus saat dengerin ini.</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Laura</span><span>Ada rekomendasi lagu yang pas untuk perjalanan?</span>
-                    </p>
-                    <p><span class="mr-4 font-semibold">Daniel</span><span>Bisa ngucapin selamat ulang tahun buat temenku di sana?</span>
-                    </p>
+
                 </div>
                 <div>
                     <hr>
                     <form id="on-submit-chat">
                         <div class=" flex-row py-2 px-5 flex">
                             <div class="flex flex-col gap-2 mr-3 w-full">
-                                <label for="name-chat">
+                                <label class="hidden" for="name-chat">
                                     <input class="rounded-2xl border px-2 py-1 border-gray-200 w-full" id="name-chat"
                                            type="text"
                                            placeholder="Nama..">
@@ -209,7 +163,7 @@
                                 <label for="new-chat">
                                     <input class="rounded-2xl border px-2 py-1 border-gray-200 w-full" id="new-chat"
                                            type="text"
-                                           placeholder="Chat sebagai pendengar..">
+                                           placeholder="Chat sebagai penyiar..">
                                 </label>
                             </div>
                             <button id="new-chat-btn" class="p-2 h-auto bg-gray-200 rounded-full">
@@ -226,7 +180,7 @@
         </div>
     </div>
 
-    <input id="radioId" hidden="hidden" value="<%= id %>" type="text">
+    <input class="text-radical-red-500" id="radioId" hidden="hidden" value="<%= id %>" type="text">
     <input id="radioName" hidden="hidden" value="<%= title %>" type="text">
 
     <div class="flex flex-col w-full items-center py-10">
@@ -255,6 +209,7 @@
 <script src="/js/playlist.js"></script>
 <script src="/js/broadcast-control.js"></script>
 <script src="/js/socket-rtc.js"></script>
+<script src="/js/live-chat.js"></script>
 </body>
 </html>
 
