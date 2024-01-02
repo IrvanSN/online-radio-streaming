@@ -95,11 +95,14 @@ const handleMusicChanges = (index) => {
   const source = audioContext.createBufferSource();
   source.buffer = buffer;
   source.start(0);
-  source.addEventListener("ended", () =>
-    playlistAudioBuffers.length - 1 !== index
-      ? handleMusicChanges(index + 1)
-      : null,
-  );
+  source.addEventListener("ended", () => {
+    if (playlistAudioBuffers.length - 1 !== index) {
+      handleMusicChanges(index + 1);
+    }
+
+    const musicControl = document.querySelectorAll(".btn-music-control");
+    musicControl[index].innerHTML = playIcon;
+  });
 
   if (currentMusicMediaStreamSource) {
     currentMusicMediaStreamSource.disconnect();
@@ -118,6 +121,9 @@ const handleMusicChanges = (index) => {
 
   musicPlayingTitle.innerHTML =
     document.querySelectorAll(".music-title")[index].innerHTML;
+
+  const musicControl = document.querySelectorAll(".btn-music-control");
+  musicControl[index].innerHTML = pauseIcon;
 };
 
 broadcastCtrlBtn.addEventListener("click", () => {
