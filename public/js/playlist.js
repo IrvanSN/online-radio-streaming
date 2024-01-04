@@ -12,14 +12,15 @@ const deleteIcon = `
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
                               </svg>
                           `;
-const createDeleteElement = (trackId) => {
+const createDeleteElement = (trackId, currentRowLength) => {
   const deleteBtn = document.createElement("button");
   deleteBtn.type = "button";
   deleteBtn.innerHTML = deleteIcon;
   deleteBtn.addEventListener("click", () => {
-    musicMediaStreams = musicMediaStreams.filter((item) => item.id !== trackId);
+    console.log(playlistAudioBuffers);
+    playlistAudioBuffers.splice(currentRowLength, 1);
 
-    if (musicMediaStreams.length === 0) {
+    if (playlistAudioBuffers.length === 0) {
       emptyPlaylistNotification.hidden = false;
     }
 
@@ -53,15 +54,6 @@ const createPlayElement = (index) => {
 
   return playBtn;
 };
-
-// TODO
-const mediaData = document.getElementById("media-data");
-mediaData.addEventListener("click", () => {
-  console.log("musicMediaStreams data", musicMediaStreams);
-  console.log("playlistUploadInput.files", playlistUploadInput.files);
-  console.log("playlistAudioBuffers", playlistAudioBuffers);
-  console.log("currentMusicMediaStreamSource", currentMusicMediaStreamSource);
-});
 
 playlistUploadInput.addEventListener("change", () => {
   const { files } = playlistUploadInput;
@@ -108,7 +100,7 @@ playlistUploadInput.addEventListener("change", () => {
             wrapperContainer.appendChild(titleList);
             wrapperContainer.appendChild(listRow);
 
-            const deleteBtnElement = createDeleteElement(id);
+            const deleteBtnElement = createDeleteElement(id, currentRowLength);
             const playBtnElement = createPlayElement(currentRowLength);
 
             listRow.appendChild(deleteBtnElement);
