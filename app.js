@@ -160,4 +160,8 @@ fetch(`https://global.xirsys.net/_turn/${process.env.ICE_STUN_API_CHANNEL}`, {
   body: JSON.stringify({ format: "urls" }),
 })
   .then((response) => response.json())
-  .then((res) => startRedis(res.v.iceServers));
+  .then((res) => {
+    console.log("res", res);
+    startRedis(res.v.iceServers);
+  })
+  .catch((e) => console.log(e));
