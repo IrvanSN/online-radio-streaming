@@ -17,7 +17,6 @@ const createDeleteElement = (trackId, currentRowLength) => {
   deleteBtn.type = "button";
   deleteBtn.innerHTML = deleteIcon;
   deleteBtn.addEventListener("click", () => {
-    console.log(playlistAudioBuffers);
     playlistAudioBuffers.splice(currentRowLength, 1);
 
     if (playlistAudioBuffers.length === 0) {

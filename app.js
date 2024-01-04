@@ -3,13 +3,7 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const path = require("path");
-const server = require("https").createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname + process.env.SSL_KEY)),
-    cert: fs.readFileSync(path.join(__dirname + process.env.SSL_CERT)),
-  },
-  app,
-);
+const server = require("http").createServer(app);
 
 const port = process.env.PORT || 3000;
 
