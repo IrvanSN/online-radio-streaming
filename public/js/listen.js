@@ -46,6 +46,7 @@ socket.on("candidate", (id, event) => {
 });
 
 socket.on("offer", async (broadcaster, sdp, iceServers) => {
+  console.log("iceServers", iceServers);
   rtcPeerConnections[broadcaster.id] = new RTCPeerConnection({
     iceServers: [iceServers],
   });

@@ -134,6 +134,7 @@ const main = (redis, iceServers) => {
 };
 
 const startRedis = (iceServers) => {
+  console.log("iceServers", iceServers);
   createClient({
     url: process.env.REDIS_SERVER_URL,
   })
